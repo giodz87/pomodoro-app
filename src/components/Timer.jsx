@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../assets/logo.svg";
 import settings from "../assets/icon-settings.svg";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -12,27 +12,45 @@ export default function Timer({
   setMinutes,
   seconds,
   setSeconds,
+  pomodoro,
+  setPomodor,
+  shortMinutes,
+  setShortMinutes,
+  longMinutes,
+  setLongMinutes,
+  count,
+  setCount,
+  minut,
+  setminut,
+  runing,
+  setRuning,
+  elementStyle,
+  setElementStyle,
+  fontStyle,
+  setFontStyle,
 }) {
-  const minuteRef = useRef(minutes);
-
-  const [runing, setRuning] = useState(false);
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (runing) {
-        if (minutes === 0 && seconds === 0) {
-          clearInterval(interval);
-        } else {
-          if (seconds === 0) {
-            setMinutes(minutes - 1);
-            setSeconds(59);
+    if (close == false) {
+      const interval = setInterval(() => {
+        if (runing) {
+          setCount(count - 1);
+
+          if (minutes === 0 && seconds === 0) {
+            clearInterval(interval);
           } else {
-            setSeconds(seconds - 1);
+            if (seconds === 0) {
+              setMinutes(minutes - 1);
+
+              setSeconds(59);
+            } else {
+              setSeconds(seconds - 1);
+            }
           }
         }
-      }
-    }, 1000);
+      }, 1000);
 
-    return () => clearInterval(interval);
+      return () => clearInterval(interval);
+    }
   }, [minutes, seconds, runing]);
 
   const formattedTime = `${minutes < 10 ? `0${minutes}` : minutes}:${
@@ -42,18 +60,45 @@ export default function Timer({
   const oupenMenu = () => {
     setClose(!close);
   };
-  console.log(minutes);
+  console.log(pomodoro);
+  console.log((count / (minut * 60)) * 100);
   return (
-    <div className="flex flex-col items-center justify-between gap-[45px]">
+    <div className="flex flex-col items-center justify-between gap-[45px]  w-[375px] ">
       <img src={logo} alt="" />
       <div className=" flex flex-row items-center justify-between w-[327px] h-[63px] bg-[#161932] rounded-[31.5px]">
-        <button className=" cursor-pointer text-xs text-[#1E213F] font-[700] w-[105px] h-[48px] rounded-[26.5px] bg-[#D881F8] flex items-center justify-center ml-2">
-          pomodoro
-        </button>
-        <p className="mr-[15px] text-[#D7E0FF] text-xs  opacity-40">
+        <div
+          className={` cursor-pointer text-xs text-[#1E213F] font-[700] rounded-[26.5px]  ml-2 w-[105px] h-[48px]  bg-[#F87070]`}
+        >
+          <p
+            onClick={() => {
+              setMinutes(pomodoro);
+              setSeconds(0);
+              setCount();
+            }}
+            className={` flex items-center justify-center w-[105px] h-[48px] rounded-[26.5px]  bg-[${elementStyle.backgroundColor}] font-[${fontStyle.fontFamily}]`}
+          >
+            pomodoro
+          </p>
+        </div>
+
+        <button
+          className={`mr-[15px] text-[#D7E0FF] text-xs  opacity-40 font-[${fontStyle.fontFamily}] cursor-pointer `}
+          onClick={() => {
+            setMinutes(shortMinutes);
+            setSeconds(0);
+            setCount();
+          }}
+        >
           short break
-        </p>
-        <p className="mr-[24px] text-[#D7E0FF] text-xs  opacity-40">
+        </button>
+        <p
+          onClick={() => {
+            setMinutes(longMinutes);
+            setSeconds(0);
+            setCount(100);
+          }}
+          className={`mr-[24px] text-[#D7E0FF] text-xs  opacity-40 font-[${fontStyle.fontFamily}]`}
+        >
           long break
         </p>
       </div>
@@ -93,38 +138,51 @@ export default function Timer({
           >
             <div
               label="Square linecaps"
-              className=" flex flex-col justify-center items-center relative "
+              className=" flex flex-col justify-center items-center relative  "
             >
               <CircularProgressbar
-                value={minutes * 60}
+                className={` font-[${fontStyle.fontFamily}] tracking-[${fontStyle.letterSpacing}] font-[${fontStyle.fontWeight}]`}
+                value={(count / (minut * 60)) * 100}
                 text={formattedTime}
-                strokeWidth={"5"}
+                strokeWidth={"4"}
                 styles={buildStyles({
+                  pathColor: elementStyle.backgroundColor,
                   fontSize: "18px",
                   textSize: "30px",
-                  pathColor: `#D881F8`,
                   textColor: "#fff",
                   trailColor: "  #161932",
                 })}
               />
 
-              {runing ? (
-                <button
-                  onClick={() => {
-                    setRuning(false);
-                  }}
-                  className=" text-[14px] font-[400] tracking-[13px] absolute bottom-12"
-                >
-                  PAUSE
-                </button>
+              {(count / (minut * 60)) * 100 > 0 ? (
+                runing ? (
+                  <button
+                    onClick={() => {
+                      setRuning(false);
+                    }}
+                    className={`font-[${fontStyle.fontFamily}]  text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
+                  >
+                    PAUSE
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setRuning(true);
+                    }}
+                    className={`font-[${fontStyle.fontFamily}] text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
+                  >
+                    START
+                  </button>
+                )
               ) : (
                 <button
                   onClick={() => {
-                    setRuning(true);
+                    setMinutes(pomodoro);
+                    setCount("60");
                   }}
-                  className=" text-[14px] font-[400] tracking-[13px] absolute bottom-12"
+                  className={`font-[${fontStyle.fontFamily}] text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
                 >
-                  START
+                  RESTART
                 </button>
               )}
             </div>
