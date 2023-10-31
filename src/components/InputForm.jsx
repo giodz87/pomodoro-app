@@ -21,8 +21,7 @@ export default function InputForm({
   setElementStyle,
   fontStyle,
   setFontStyle,
-  mode,
-  setMode,
+
   font,
   setFont,
   bgColor,

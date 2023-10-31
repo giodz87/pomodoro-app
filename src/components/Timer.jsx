@@ -14,8 +14,6 @@ export default function Timer({
   setSeconds,
   pomodoro,
   shortMinutes,
-  setShortMinutes,
-  setLongMinutes,
   longMinutes,
   count,
   setCount,

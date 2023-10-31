@@ -56,9 +56,7 @@ function App() {
         setSeconds={setSeconds}
         setPomodor={setPomodor}
         shortMinutes={shortMinutes}
-        setShortMinutes={setShortMinutes}
         longMinutes={longMinutes}
-        setLongMinutes={setLongMinutes}
         setCount={setCount}
         minut={minut}
         setminut={setminut}
@@ -67,8 +65,6 @@ function App() {
         setElementStyle={setElementStyle}
         fontStyle={fontStyle}
         setFontStyle={setFontStyle}
-        mode={mode}
-        setMode={setMode}
         font={font}
         setFont={setFont}
         bgColor={bgColor}
