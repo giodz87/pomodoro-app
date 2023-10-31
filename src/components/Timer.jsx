@@ -50,10 +50,12 @@ export default function Timer({
     }
   }, [minutes, seconds, runing]);
 
-  const formattedTime = `${minutes < 10 ? `0${minutes}` : minutes}:${
-    seconds < 10 ? `0${seconds}` : seconds
-  }`;
+  // const formattedTime = `${minutes < 10 ? `0${minutes}` : minutes}:${
+  //   seconds < 10 ? `0${seconds}` : seconds
+  // }`;
+  const formattedTime = `${minutes < 10 ? `0${minutes}` : minutes}`;
 
+  const formatSecond = `${seconds < 10 ? `0${seconds}` : seconds}`;
   const oupenMenu = () => {
     setClose(!close);
   };
@@ -140,7 +142,6 @@ export default function Timer({
               height: "268px",
               backgroundColor: "#161932",
               borderRadius: "50%",
-
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -152,27 +153,34 @@ export default function Timer({
               label="Square linecaps"
               className=" flex flex-col justify-center items-center relative  "
             >
-              <CircularProgressbar
-                className={` ${fontStyle.font} ${fontStyle.letterSpacing} font-[${fontStyle.fontWeight}]`}
-                value={(count / (minut * 60)) * 100}
-                text={formattedTime}
-                strokeWidth={"4"}
-                styles={buildStyles({
-                  pathColor: elementStyle.backgroundColor,
-                  fontSize: "18px",
-                  textSize: "30px",
-                  textColor: "#fff",
-                  trailColor: "  #161932",
-                })}
-              />
-
+              <div className=" relative">
+                <h1 className=" absolute left-[10%] bottom-[30%] text-[80px] w-[95px]">
+                  {formattedTime}
+                </h1>
+                <p className=" absolute left-[55%] bottom-[30%] text-[80px]">
+                  {formatSecond}
+                </p>
+                <CircularProgressbar
+                  className={` ${fontStyle.font} ${fontStyle.letterSpacing} font-[${fontStyle.fontWeight}] `}
+                  value={(count / (minut * 60)) * 100}
+                  text={":"}
+                  strokeWidth={"4"}
+                  styles={buildStyles({
+                    pathColor: elementStyle.backgroundColor,
+                    fontSize: "18px",
+                    textSize: "29px",
+                    textColor: "#fff",
+                    trailColor: "  #161932",
+                  })}
+                />
+              </div>
               {(count / (minut * 60)) * 100 > 0 ? (
                 runing ? (
                   <button
                     onClick={() => {
                       setRuning(false);
                     }}
-                    className={`${fontStyle.font}   text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
+                    className={`${fontStyle.font} pl-[15px] text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
                   >
                     PAUSE
                   </button>
@@ -181,7 +189,7 @@ export default function Timer({
                     onClick={() => {
                       setRuning(true);
                     }}
-                    className={`${fontStyle.font} text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
+                    className={`${fontStyle.font} pl-[15px] text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
                   >
                     START
                   </button>

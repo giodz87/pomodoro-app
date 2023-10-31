@@ -21,7 +21,6 @@ export default function InputForm({
   setElementStyle,
   fontStyle,
   setFontStyle,
-
   font,
   setFont,
   bgColor,
@@ -189,7 +188,7 @@ export default function InputForm({
                 </li>
                 <li
                   onClick={() => {
-                    changeFont("space", "", "400px");
+                    changeFont("space", "-2px", "400px");
                     setFont("aspace");
                   }}
                   className={

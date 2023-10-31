@@ -13,6 +13,9 @@
   .space {
     font-family: "Space Mono";
   }
+  .CircularProgressbar-text {
+    width: 205px !important;
+  }
 }
 
 * {
