@@ -3,6 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .kumbh {
+    font-family: "Kumbh Sans";
+  }
+  .roboto {
+    font-family: "Roboto Slab";
+  }
+  .space {
+    font-family: "Space Mono";
+  }
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -16,13 +16,14 @@ function App() {
     backgroundColor: "#F87070",
   });
   const [fontStyle, setFontStyle] = useState({
-    fontFamily: "Kumbh-Sans",
+    font: "kumbh",
+
     letterSpacing: "tracking",
     fontWeight: "font ",
   });
 
   return (
-    <>
+    <div div className="flex flex-col items-center justify-center">
       <Timer
         close={close}
         setClose={setClose}
@@ -31,11 +32,8 @@ function App() {
         seconds={seconds}
         setSeconds={setSeconds}
         pomodoro={pomodoro}
-        setPomodor={setPomodor}
         shortMinutes={shortMinutes}
-        setShortMinutes={setShortMinutes}
         longMinutes={longMinutes}
-        setLongMinutes={setLongMinutes}
         count={count}
         setCount={setCount}
         minut={minut}
@@ -43,35 +41,28 @@ function App() {
         runing={runing}
         setRuning={setRuning}
         elementStyle={elementStyle}
-        setElementStyle={setElementStyle}
         fontStyle={fontStyle}
-        setFontStyle={setFontStyle}
       />
       <InputForm
         close={close}
         setClose={setClose}
-        minutes={minutes}
         setMinutes={setMinutes}
-        seconds={seconds}
         setSeconds={setSeconds}
-        pomodoro={pomodoro}
         setPomodor={setPomodor}
         shortMinutes={shortMinutes}
         setShortMinutes={setShortMinutes}
         longMinutes={longMinutes}
         setLongMinutes={setLongMinutes}
-        count={count}
         setCount={setCount}
         minut={minut}
         setminut={setminut}
-        runing={runing}
         setRuning={setRuning}
         elementStyle={elementStyle}
         setElementStyle={setElementStyle}
         fontStyle={fontStyle}
         setFontStyle={setFontStyle}
       />
-    </>
+    </div>
   );
 }
 

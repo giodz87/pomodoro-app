@@ -5,19 +5,16 @@ import { useState, useEffect } from "react";
 export default function InputForm({
   close,
   setClose,
-  minutes,
   setMinutes,
-  seconds,
   setSeconds,
-  pomodoro,
   setPomodor,
   shortMinutes,
   setShortMinutes,
-  count,
+  longMinutes,
+  setLongMinutes,
   setCount,
   minut,
   setminut,
-  runing,
   setRuning,
   elementStyle,
   setElementStyle,
@@ -53,22 +50,37 @@ export default function InputForm({
     setElementStyle(clone);
   };
 
+  let arr = [
+    {
+      fontFamily: "Kumbh-Sans",
+      fontWeight: "700",
+    },
+    {
+      fontFamily: "Roboto-Slab",
+      fontWeight: "700",
+    },
+    {
+      fontFamily: "Space-Mono",
+      fontWeight: "400",
+    },
+  ];
+
   const changeFont = (fontFamily, letterSpacing, fontWeight) => {
     let clon = { ...fontStyle };
-    clon.fontFamily = fontFamily;
+    clon.font = fontFamily;
     clon.letterSpacing = letterSpacing;
     clon.fontWeight = fontWeight;
 
     setFontStyle(clon);
   };
-  console.log(fontStyle.fontFamily);
+
   return (
     <div className=" absolute top-12">
       {close ? (
         <section className="flex flex-col  justify-between w-[327px]  bg-[#fff] relative p-[24px] rounded-[15px]">
           <div className="flex flex-row items-center justify-between mb-[54px]">
             <h1
-              className={` font-[${fontStyle.fontFamily}] font-[700]   text-[20px] text-[#161932]  `}
+              className={` ${fontStyle.font}    font-[${fontStyle.fontWeight}]   text-[20px] text-[#161932]  `}
             >
               Settings
             </h1>
@@ -87,58 +99,63 @@ export default function InputForm({
           >
             {" "}
             <div
-              className={` font-[${fontStyle.fontFamily}]    text-center mb-[10px] text-[#161932] tetx-[11px] font-[Kumbh-Sans]  font-[700]    `}
+              className={` ${fontStyle.font}      text-center mb-[10px] text-[#161932] tetx-[11px] font-[Kumbh-Sans]  font-[700]    `}
             >
               <p>TIME (MINUTES)</p>
             </div>
             <div className="flex flex-row items-center justify-between">
               <p
-                className={`font-[${fontStyle.fontFamily}] font-[700] opacity-[0.4] text-[12px] text-[#1E213F]   `}
+                className={`${fontStyle.font}   font-[700] opacity-[0.4] text-[12px] text-[#1E213F]   `}
               >
                 pomodoro
               </p>
 
               <input
                 type="number"
-                className="bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px]"
+                className={` ${fontStyle.font} bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px]`}
                 {...register("number1", { min: 0, max: 99 })}
                 defaultValue={minut}
                 onChange={(e) => {
                   setMinutes(Number(e.target.value));
                   setminut(Number(e.target.value));
+                  setPomodor(Number(e.target.value));
                 }}
               />
             </div>
             <div className="flex flex-row items-center justify-between ">
               <p
-                className={`font-[${fontStyle.fontFamily}]  font-[700] opacity-[0.4]  text-[12px] text-[#1E213F]`}
+                className={`${fontStyle.font}    font-[700] opacity-[0.4]  text-[12px] text-[#1E213F]`}
               >
                 short break
               </p>
 
               <input
                 type="number"
-                className="bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px]"
+                className={`${fontStyle.font}  bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px]`}
                 {...register("number2", { min: 0, max: 99 })}
-                defaultValue={5}
+                defaultValue={shortMinutes}
                 onChange={(e) => {
                   setMinutes(Number(e.target.value));
                   setminut(Number(e.target.value));
+                  setShortMinutes(Number(e.target.value));
                 }}
               />
             </div>
             <div className="flex flex-row items-center justify-between ">
-              <p className="font-[Kumbh-Sans]  font-[700] opacity-[0.4]  text-[12px] text-[#1E213F]">
+              <p
+                className={`${fontStyle.font}    font-[700] opacity-[0.4]  text-[12px] text-[#1E213F]`}
+              >
                 long break
               </p>
               <input
                 type="number"
-                className="bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px]"
+                className={`${fontStyle.font} bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px]`}
                 {...register("number3", { min: 0, max: 99 })}
-                defaultValue={15}
+                defaultValue={longMinutes}
                 onChange={(e) => {
                   setMinutes(Number(e.target.value));
                   setminut(Number(e.target.value));
+                  setLongMinutes(Number(e.target.value));
                 }}
               />
             </div>
@@ -146,24 +163,27 @@ export default function InputForm({
           <div className="flex flex-col items-center justify-between gap-[24px]">
             <div className=" w-full h-1 bg-[#E3E1E1]"></div>
             <div className="flex flex-col items-center justify-between gap-[18px]">
-              <p className="font-[Kumbh-Sans]  font-[700] text-[14px] tracking-[4.2px]">
+              <p
+                className={` ${fontStyle.font}  font-[700] text-[14px] tracking-[4.2px]`}
+              >
                 FONT
               </p>
               <ul className="list-none flex flex-row items-center justify-between">
                 <li
-                  onClick={() => changeFont("Kumbh-Sans", "-5px", "700")}
+                  onClick={() => changeFont("kumbh", "-5px", "700")}
                   className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#161932] mx-2 text-[#fff] cursor-pointer font-[Kumbh-Sans] font-[700]"
                 >
                   Aa
                 </li>
+
                 <li
-                  onClick={() => changeFont("Roboto-Slab", "", "700")}
+                  onClick={() => changeFont("roboto", "", "700")}
                   className="flex items-center justify-center  w-[40px] h-[40px]  rounded-full bg-[#EFF1FA] mx-2 text-[#1E213F] font-[Roboto-Slab] font-[400] opacity-[0.7] cursor-pointer"
                 >
                   Aa
                 </li>
                 <li
-                  onClick={() => changeFont("Space-Mono", "-10px", "400px")}
+                  onClick={() => changeFont("space", "-10px", "400px")}
                   className="flex items-center justify-center  w-[40px] h-[40px] rounded-full bg-[#EFF1FA] mx-2 text-[#1E213F] font-[Space-Mono] font-[700] opacity-[0.7] cursor-pointer"
                 >
                   Aa
@@ -172,7 +192,9 @@ export default function InputForm({
             </div>
             <div className=" w-full h-1 bg-[#E3E1E1]"></div>
             <div className="flex flex-col items-center justify-between gap-[18px] mb-[32px]">
-              <p className="font-[Kumbh-Sans]  font-[700] text-[13px] tracking-[4.2px]">
+              <p
+                className={`${fontStyle.font}   font-[700] text-[13px] tracking-[4.2px]`}
+              >
                 COLOR
               </p>
               <ul className="list-none flex flex-row items-center justify-between">
@@ -180,6 +202,7 @@ export default function InputForm({
                   onClick={() => changeElement("#F87070")}
                   className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#F87070] mx-2 cursor-pointer"
                 ></li>
+
                 <li
                   onClick={() => changeElement("#70F3F8")}
                   className="flex items-center justify-center  w-[40px] h-[40px]  rounded-full bg-[#70F3F8] mx-2  cursor-pointer"
@@ -192,7 +215,7 @@ export default function InputForm({
             </div>
             <button
               onClick={onSubmit}
-              className="w-[140px] h-[53px] bg-[#F87070] rounded-[27px] text-[#fff] absolute bottom-[-30px] cursor-pointer font-[Kumbh-Sans]  font-[700] text-[16px]"
+              className={` ${fontStyle.font}  w-[140px] h-[53px] bg-[#F87070] rounded-[27px] text-[#fff] absolute bottom-[-30px] cursor-pointer font-[700] text-[16px]`}
             >
               Apply
             </button>

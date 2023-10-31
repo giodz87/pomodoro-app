@@ -13,11 +13,8 @@ export default function Timer({
   seconds,
   setSeconds,
   pomodoro,
-  setPomodor,
   shortMinutes,
-  setShortMinutes,
   longMinutes,
-  setLongMinutes,
   count,
   setCount,
   minut,
@@ -25,9 +22,7 @@ export default function Timer({
   runing,
   setRuning,
   elementStyle,
-  setElementStyle,
   fontStyle,
-  setFontStyle,
 }) {
   useEffect(() => {
     if (close == false) {
@@ -60,8 +55,7 @@ export default function Timer({
   const oupenMenu = () => {
     setClose(!close);
   };
-  console.log(pomodoro);
-  console.log((count / (minut * 60)) * 100);
+
   return (
     <div className="flex flex-col items-center justify-between gap-[45px]  w-[375px] ">
       <img src={logo} alt="" />
@@ -72,21 +66,23 @@ export default function Timer({
           <p
             onClick={() => {
               setMinutes(pomodoro);
+              setminut(pomodoro);
               setSeconds(0);
-              setCount();
+              setCount(pomodoro * 60);
             }}
-            className={` flex items-center justify-center w-[105px] h-[48px] rounded-[26.5px]  bg-[${elementStyle.backgroundColor}] font-[${fontStyle.fontFamily}]`}
+            className={` flex items-center justify-center w-[105px] h-[48px] rounded-[26.5px]  bg-[${elementStyle.backgroundColor}] ${fontStyle.font} `}
           >
             pomodoro
           </p>
         </div>
 
         <button
-          className={`mr-[15px] text-[#D7E0FF] text-xs  opacity-40 font-[${fontStyle.fontFamily}] cursor-pointer `}
+          className={`mr-[15px] text-[#D7E0FF] text-xs  opacity-40 ${fontStyle.font}  cursor-pointer `}
           onClick={() => {
             setMinutes(shortMinutes);
+            setminut(shortMinutes);
             setSeconds(0);
-            setCount();
+            setCount(shortMinutes * 60);
           }}
         >
           short break
@@ -94,10 +90,11 @@ export default function Timer({
         <p
           onClick={() => {
             setMinutes(longMinutes);
+            setminut(longMinutes);
             setSeconds(0);
-            setCount(100);
+            setCount(longMinutes * 60);
           }}
-          className={`mr-[24px] text-[#D7E0FF] text-xs  opacity-40 font-[${fontStyle.fontFamily}]`}
+          className={`mr-[24px] text-[#D7E0FF] text-xs  opacity-40 ${fontStyle.font} `}
         >
           long break
         </p>
@@ -141,7 +138,7 @@ export default function Timer({
               className=" flex flex-col justify-center items-center relative  "
             >
               <CircularProgressbar
-                className={` font-[${fontStyle.fontFamily}] tracking-[${fontStyle.letterSpacing}] font-[${fontStyle.fontWeight}]`}
+                className={` ${fontStyle.font} tracking-[${fontStyle.letterSpacing}] font-[${fontStyle.fontWeight}]`}
                 value={(count / (minut * 60)) * 100}
                 text={formattedTime}
                 strokeWidth={"4"}
@@ -160,7 +157,7 @@ export default function Timer({
                     onClick={() => {
                       setRuning(false);
                     }}
-                    className={`font-[${fontStyle.fontFamily}]  text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
+                    className={`${fontStyle.font}   text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
                   >
                     PAUSE
                   </button>
@@ -169,7 +166,7 @@ export default function Timer({
                     onClick={() => {
                       setRuning(true);
                     }}
-                    className={`font-[${fontStyle.fontFamily}] text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
+                    className={`${fontStyle.font} text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
                   >
                     START
                   </button>
@@ -180,7 +177,7 @@ export default function Timer({
                     setMinutes(pomodoro);
                     setCount("60");
                   }}
-                  className={`font-[${fontStyle.fontFamily}] text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
+                  className={`${fontStyle.font}  text-[14px] font-[700] tracking-[13px] absolute bottom-12 `}
                 >
                   RESTART
                 </button>
