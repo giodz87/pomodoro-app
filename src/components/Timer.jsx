@@ -14,6 +14,8 @@ export default function Timer({
   setSeconds,
   pomodoro,
   shortMinutes,
+  setShortMinutes,
+  setLongMinutes,
   longMinutes,
   count,
   setCount,
@@ -23,6 +25,8 @@ export default function Timer({
   setRuning,
   elementStyle,
   fontStyle,
+  mode,
+  setMode,
 }) {
   useEffect(() => {
     if (close == false) {
@@ -60,44 +64,57 @@ export default function Timer({
     <div className="flex flex-col items-center justify-between gap-[45px]  w-[375px] ">
       <img src={logo} alt="" />
       <div className=" flex flex-row items-center justify-between w-[327px] h-[63px] bg-[#161932] rounded-[31.5px]">
-        <div
-          className={` cursor-pointer text-xs text-[#1E213F] font-[700] rounded-[26.5px]  ml-2 w-[105px] h-[48px]  bg-[#F87070]`}
-        >
-          <p
+        <div className={` cursor-pointer text-xs text-[#1E213F] font-[700] `}>
+          <button
             onClick={() => {
               setMinutes(pomodoro);
               setminut(pomodoro);
               setSeconds(0);
               setCount(pomodoro * 60);
+              setMode("pomodoro");
             }}
-            className={` flex items-center justify-center w-[105px] h-[48px] rounded-[26.5px]  bg-[${elementStyle.backgroundColor}] ${fontStyle.font} `}
+            className={
+              mode == "pomodoro"
+                ? `   text-[#D7E0FF]  bg-[${elementStyle.backgroundColor}] rounded-[26.5px] text-xs w-[105px] h-[48px]  ${fontStyle.font}   cursor-pointer `
+                : ` opacity-[0.4]  text-xs w-[105px] text-[#D7E0FF;] ${fontStyle.font} `
+            }
           >
             pomodoro
-          </p>
+          </button>
         </div>
 
         <button
-          className={`mr-[15px] text-[#D7E0FF] text-xs  opacity-40 ${fontStyle.font}  cursor-pointer `}
+          className={
+            mode == "short"
+              ? `    text-[#D7E0FF]  bg-[${elementStyle.backgroundColor}] rounded-[26.5px] text-xs w-[105px] h-[48px]  ${fontStyle.font}  cursor-pointer `
+              : ` opacity-[0.4]  text-xs w-[105px] text-[#D7E0FF;]`
+          }
           onClick={() => {
             setMinutes(shortMinutes);
             setminut(shortMinutes);
             setSeconds(0);
             setCount(shortMinutes * 60);
+            setMode("short");
           }}
         >
           short break
         </button>
-        <p
+        <button
           onClick={() => {
             setMinutes(longMinutes);
             setminut(longMinutes);
             setSeconds(0);
             setCount(longMinutes * 60);
+            setMode("long");
           }}
-          className={`mr-[24px] text-[#D7E0FF] text-xs  opacity-40 ${fontStyle.font} `}
+          className={
+            mode == "long"
+              ? `    text-[#D7E0FF]  bg-[${elementStyle.backgroundColor}] rounded-[26.5px] text-xs w-[105px] h-[48px]  ${fontStyle.font}  cursor-pointer `
+              : ` opacity-[0.4]  text-xs w-[105px] text-[#D7E0FF;]`
+          }
         >
           long break
-        </p>
+        </button>
       </div>
 
       <div>
@@ -138,7 +155,7 @@ export default function Timer({
               className=" flex flex-col justify-center items-center relative  "
             >
               <CircularProgressbar
-                className={` ${fontStyle.font} tracking-[${fontStyle.letterSpacing}] font-[${fontStyle.fontWeight}]`}
+                className={` ${fontStyle.font} ${fontStyle.letterSpacing} font-[${fontStyle.fontWeight}]`}
                 value={(count / (minut * 60)) * 100}
                 text={formattedTime}
                 strokeWidth={"4"}

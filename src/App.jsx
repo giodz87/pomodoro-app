@@ -21,7 +21,9 @@ function App() {
     letterSpacing: "tracking",
     fontWeight: "font ",
   });
-
+  const [mode, setMode] = useState("pomodoro");
+  const [font, setFont] = useState("akumbh");
+  const [bgColor, setBgColor] = useState("red");
   return (
     <div div className="flex flex-col items-center justify-center">
       <Timer
@@ -33,7 +35,9 @@ function App() {
         setSeconds={setSeconds}
         pomodoro={pomodoro}
         shortMinutes={shortMinutes}
+        setShortMinutes={setShortMinutes}
         longMinutes={longMinutes}
+        setLongMinutes={setLongMinutes}
         count={count}
         setCount={setCount}
         minut={minut}
@@ -42,6 +46,8 @@ function App() {
         setRuning={setRuning}
         elementStyle={elementStyle}
         fontStyle={fontStyle}
+        mode={mode}
+        setMode={setMode}
       />
       <InputForm
         close={close}
@@ -61,6 +67,12 @@ function App() {
         setElementStyle={setElementStyle}
         fontStyle={fontStyle}
         setFontStyle={setFontStyle}
+        mode={mode}
+        setMode={setMode}
+        font={font}
+        setFont={setFont}
+        bgColor={bgColor}
+        setBgColor={setBgColor}
       />
     </div>
   );

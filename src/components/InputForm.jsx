@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import closed from "../assets/icon-close.svg";
+import down from "../assets/icon-arrow-down.svg";
 import { useState, useEffect } from "react";
 export default function InputForm({
   close,
@@ -20,6 +21,12 @@ export default function InputForm({
   setElementStyle,
   fontStyle,
   setFontStyle,
+  mode,
+  setMode,
+  font,
+  setFont,
+  bgColor,
+  setBgColor,
 }) {
   const handleClose = () => {
     setClose(!close);
@@ -49,21 +56,6 @@ export default function InputForm({
     clone.backgroundColor = backgroundColor;
     setElementStyle(clone);
   };
-
-  let arr = [
-    {
-      fontFamily: "Kumbh-Sans",
-      fontWeight: "700",
-    },
-    {
-      fontFamily: "Roboto-Slab",
-      fontWeight: "700",
-    },
-    {
-      fontFamily: "Space-Mono",
-      fontWeight: "400",
-    },
-  ];
 
   const changeFont = (fontFamily, letterSpacing, fontWeight) => {
     let clon = { ...fontStyle };
@@ -99,7 +91,7 @@ export default function InputForm({
           >
             {" "}
             <div
-              className={` ${fontStyle.font}      text-center mb-[10px] text-[#161932] tetx-[11px] font-[Kumbh-Sans]  font-[700]    `}
+              className={` ${fontStyle.font}text-center mb-[10px] text-[#161932] tetx-[11px] font-[Kumbh-Sans]  font-[700]    `}
             >
               <p>TIME (MINUTES)</p>
             </div>
@@ -112,7 +104,7 @@ export default function InputForm({
 
               <input
                 type="number"
-                className={` ${fontStyle.font} bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px]`}
+                className={` ${fontStyle.font} bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px] pl-[16px] pr-[16px]  outline-none`}
                 {...register("number1", { min: 0, max: 99 })}
                 defaultValue={minut}
                 onChange={(e) => {
@@ -131,7 +123,7 @@ export default function InputForm({
 
               <input
                 type="number"
-                className={`${fontStyle.font}  bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px]`}
+                className={`${fontStyle.font}  bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px] pl-[16px] pr-[16px]  outline-none`}
                 {...register("number2", { min: 0, max: 99 })}
                 defaultValue={shortMinutes}
                 onChange={(e) => {
@@ -149,7 +141,7 @@ export default function InputForm({
               </p>
               <input
                 type="number"
-                className={`${fontStyle.font} bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px]`}
+                className={`${fontStyle.font} bg-[#EFF1FA] w-[140px] h-[40px] rounded-[10px] pl-[16px] pr-[16px]  outline-none`}
                 {...register("number3", { min: 0, max: 99 })}
                 defaultValue={longMinutes}
                 onChange={(e) => {
@@ -161,7 +153,7 @@ export default function InputForm({
             </div>
           </form>
           <div className="flex flex-col items-center justify-between gap-[24px]">
-            <div className=" w-full h-1 bg-[#E3E1E1]"></div>
+            <div className=" w-full h-[1px] bg-[#E3E1E1]"></div>
             <div className="flex flex-col items-center justify-between gap-[18px]">
               <p
                 className={` ${fontStyle.font}  font-[700] text-[14px] tracking-[4.2px]`}
@@ -170,27 +162,48 @@ export default function InputForm({
               </p>
               <ul className="list-none flex flex-row items-center justify-between">
                 <li
-                  onClick={() => changeFont("kumbh", "-5px", "700")}
-                  className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#161932] mx-2 text-[#fff] cursor-pointer font-[Kumbh-Sans] font-[700]"
+                  onClick={() => {
+                    changeFont("kumbh", "-5px", "700");
+                    setFont("akumbh");
+                  }}
+                  className={
+                    font == "akumbh"
+                      ? `flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#161932] mx-2 text-[#fff] cursor-pointer font-[Kumbh-Sans] font-[700]`
+                      : `flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#EFF1FA] mx-2 text-[#1E213F] cursor-pointer font-[Kumbh-Sans] opacity-[0.7] font-[700]`
+                  }
                 >
                   Aa
                 </li>
 
                 <li
-                  onClick={() => changeFont("roboto", "", "700")}
-                  className="flex items-center justify-center  w-[40px] h-[40px]  rounded-full bg-[#EFF1FA] mx-2 text-[#1E213F] font-[Roboto-Slab] font-[400] opacity-[0.7] cursor-pointer"
+                  onClick={() => {
+                    changeFont("roboto", "", "700");
+                    setFont("aroboto");
+                  }}
+                  className={
+                    font == "aroboto"
+                      ? `flex items-center justify-center  w-[40px] h-[40px]  rounded-full bg-[#161932] mx-2 text-[#fff]  cursor-pointer font-[Roboto-Slab] font-[400] `
+                      : `flex items-center justify-center  w-[40px] h-[40px]  rounded-full bg-[#EFF1FA] mx-2 text-[#1E213F] font-[Roboto-Slab] font-[400] opacity-[0.7] cursor-pointer`
+                  }
                 >
                   Aa
                 </li>
                 <li
-                  onClick={() => changeFont("space", "-10px", "400px")}
-                  className="flex items-center justify-center  w-[40px] h-[40px] rounded-full bg-[#EFF1FA] mx-2 text-[#1E213F] font-[Space-Mono] font-[700] opacity-[0.7] cursor-pointer"
+                  onClick={() => {
+                    changeFont("space", "", "400px");
+                    setFont("aspace");
+                  }}
+                  className={
+                    font == "aspace"
+                      ? `flex items-center justify-center  w-[40px] h-[40px] rounded-full bg-[#161932] mx-2 text-[#fff]  cursor-pointer font-[Space-Mono] font-[700]  `
+                      : `flex items-center justify-center  w-[40px] h-[40px] rounded-full bg-[#EFF1FA] mx-2 text-[#1E213F] font-[Space-Mono] font-[700] opacity-[0.7] cursor-pointer`
+                  }
                 >
                   Aa
                 </li>
               </ul>
             </div>
-            <div className=" w-full h-1 bg-[#E3E1E1]"></div>
+            <div className=" w-full h-[1px] bg-[#E3E1E1]"></div>
             <div className="flex flex-col items-center justify-between gap-[18px] mb-[32px]">
               <p
                 className={`${fontStyle.font}   font-[700] text-[13px] tracking-[4.2px]`}
@@ -199,23 +212,38 @@ export default function InputForm({
               </p>
               <ul className="list-none flex flex-row items-center justify-between">
                 <li
-                  onClick={() => changeElement("#F87070")}
+                  onClick={() => {
+                    changeElement("#F87070");
+                    setBgColor("red");
+                  }}
                   className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#F87070] mx-2 cursor-pointer"
-                ></li>
+                >
+                  {bgColor == "red" ? <img src={down} alt="" /> : " "}
+                </li>
 
                 <li
-                  onClick={() => changeElement("#70F3F8")}
+                  onClick={() => {
+                    changeElement("#70F3F8");
+                    setBgColor("blue");
+                  }}
                   className="flex items-center justify-center  w-[40px] h-[40px]  rounded-full bg-[#70F3F8] mx-2  cursor-pointer"
-                ></li>
+                >
+                  {bgColor == "blue" ? <img src={down} alt="" /> : ""}
+                </li>
                 <li
-                  onClick={() => changeElement("#D881F8")}
+                  onClick={() => {
+                    changeElement("#D881F8");
+                    setBgColor("purple");
+                  }}
                   className="flex items-center justify-center  w-[40px] h-[40px] rounded-full bg-[#D881F8] mx-2 cursor-pointer "
-                ></li>
+                >
+                  {bgColor == "purple" ? <img src={down} alt="" /> : ""}
+                </li>
               </ul>
             </div>
             <button
               onClick={onSubmit}
-              className={` ${fontStyle.font}  w-[140px] h-[53px] bg-[#F87070] rounded-[27px] text-[#fff] absolute bottom-[-30px] cursor-pointer font-[700] text-[16px]`}
+              className={` ${fontStyle.font}  w-[140px] h-[53px] bg-[${elementStyle.backgroundColor}] rounded-[27px] text-[#fff] absolute bottom-[-30px] cursor-pointer font-[700] text-[16px]`}
             >
               Apply
             </button>
