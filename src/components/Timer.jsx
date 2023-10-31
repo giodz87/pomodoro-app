@@ -154,7 +154,7 @@ export default function Timer({
               className=" flex flex-col justify-center items-center relative  "
             >
               <div className=" relative">
-                <h1 className=" absolute left-[10%] bottom-[30%] text-[80px] w-[95px]">
+                <h1 className=" absolute left-[10%] bottom-[30%] text-[80px] w-[95px] text-right">
                   {formattedTime}
                 </h1>
                 <p className=" absolute left-[55%] bottom-[30%] text-[80px]">
